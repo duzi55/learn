@@ -21,6 +21,8 @@
             background: #FF4878;
             padding: 0;
             overflow: auto;
+            height: 50px;
+            line-height: 50px;
         }
         
         .tab-head-item {
@@ -29,25 +31,34 @@
             -ms-flex: 1 0 auto;
             flex: 1 0 auto;
             color: white;
-            padding: 0 5px;
+            padding: 0 10px;
+        }
+        
+        .font-active {
+            color: white !important;
+            /*transform: scale(1.1);*/
+            border-bottom: 4px solid rgb(44 168 251);
+            text-decoration: none;
+            position: relative;
         }
     </style>
 </head>
 
 <body>
-    <ul class="tab-head">
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-        <li class="tab-head-item">兴趣爱好</li>
-    </ul>
+    <div class="tab-head">
+        <span class="tab-head-item font-active">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+        <span class="tab-head-item">兴趣爱好</span>
+
+
+        </ul>
 </body>
 
 </html>
