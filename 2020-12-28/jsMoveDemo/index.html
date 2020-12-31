@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>div拖拽到div</title>
+    <script src="./jquery.js"></script>
+    <style type="text/css">
+        #div1, #div2, #div3 {
+            float: left;
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+
+        .movefolder {
+            background-color: #ccc;
+        }
+    </style>
+    <script type="text/javascript">
+        function allowDrop(ev) {
+            $("#" + ev.target.id).addClass("movefolder");
+            ev.preventDefault();
+        }
+
+        var dragItemId;
+        function drag(ev, obj) {
+            dragItemId = obj.id;
+            //console.log($("#" + obj.id).attr("class"));
+            ev.dataTransfer.setData("Text", ev.target.id);
+        }
+
+        function drop(ev) {
+            var data = ev.dataTransfer.getData("Text");
+            console.log(ev.target.id);
+            ev.target.appendChild(document.getElementById(data));
+            $("#" + ev.target.id).removeClass("movefolder");
+            ev.preventDefault();
+        }
+
+        function leaveDrag(ev) {
+            $("#" + ev.target.id).removeClass("movefolder");
+            console.log(ev.target.id);
+        }
+
+        $(function () {
+
+        });
+    </script>
+</head>
+<body>
+    <div style="width: 580px; float: left;">
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="leaveDrag(event)"></div>
+        <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="leaveDrag(event)"></div>
+        <div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="leaveDrag(event)"></div>
+    </div>
+    <div style="width: auto; margin-left: 580px;">
+        <br />
+        <div class="test" draggable="true" ondragstart="drag(event,this)" id="dragdiv1" style="background-color: red; height: 40px; width: 40px; float: left; margin: 5px; cursor: pointer;"></div>
+        <div class="test" draggable="true" ondragstart="drag(event,this)" id="dragdiv2" style="background-color: green; height: 40px; width: 40px; float: left; margin: 5px; cursor: pointer;"></div>
+        <div class="test" draggable="true" ondragstart="drag(event,this)" id="dragdiv3" style="background-color: blue; height: 40px; width: 40px; float: left; margin: 5px; cursor: pointer;"></div>
+    </div>
+</body>
+</html>

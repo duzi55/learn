@@ -1,0 +1,135 @@
+ 
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>关系图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 900px;
+            height: 600px;
+            background: #eee;
+            margin: 20px auto;
+            position: relative;
+           
+        }
+        img{
+            width: 70px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <canvas id="myCanvas" width="900" height="600" style="border:1px solid #d3d3d3;"></canvas>
+</div>
+</body>
+</html>
+<script src="jquery.js"></script>
+<script>
+	var arr=[
+		{
+			hostId:'10266',
+			connectId:'10277,10258',
+			x:0.25,
+			y:0.36
+		},
+		
+		{
+			hostId:'10258',
+			connectId:'10277',
+			x:0.98,
+			y:0.8
+		},
+	
+		{
+			hostId:'10277',
+		 	connectId:'',
+		 	x:0.65,
+			y:0.06
+		}
+	]
+	
+	var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    ctx.lineWidth = 1;
+    ctx.strokeStyle='red';
+	var html='';
+	for(var i=0;i<arr.length;i++){
+		var x=arr[i].x*$('.box')[0].offsetWidth+'px'
+        var y=arr[i].y*$('.box')[0].offsetHeight+'px'
+        var Num1=arr[i].hostId
+        var  Num=arr[i].connectId
+        if(Num==''){
+           $('.box').append('<div><img hostId='+arr[i].hostId+'    id='+arr[i].hostId+'     src="img/check2.png" class='+arr[i].hostId+' style="position: absolute;left:'+x+';top:'+y+';" connctId='+arr[i].connectId+' ><img src="img/check1.png" style="position: absolute;left:'+x+';top:'+y+';"><div>');
+        }else{
+            $('.box').append('<div><img hostId='+arr[i].hostId+'   id='+arr[i].hostId+'    src="img/check1.png" class='+arr[i].hostId+' style="position: absolute;left:'+x+';top:'+y+';" connctId='+arr[i].connectId+'><img src="img/check1.png"  style="position: absolute;left:'+x+';top:'+y+';"></div>');
+        }
+        
+	}
+	
+	for(var i=0;i<arr.length;i++){
+		var x1=arr[i].x*$('.box')[0].offsetWidth;
+        var y1=arr[i].y*$('.box')[0].offsetHeight+30;
+        console.log(x1,y1);
+//      ctx.beginPath();
+//      ctx.moveTo(x1,y1);
+        var t=arr[i].hostId;
+        console.log(t);
+        
+        var coId=$("#"+t).attr("connctId");
+        
+        if(coId){
+	        coId =coId.split(",")
+	        console.log(coId);
+        	for(var j=0;j<coId.length;j++){
+        		console.log('kkkk');
+        		$("."+coId[j]).attr("title",'img/check1.png')
+	        	var xt=$("."+coId[j]).position().left;
+	        	var yt=$("."+coId[j]).position().top+30; 
+//	        	console.log(xt,yt);
+//	      		ctx.lineTo(xt,yt);
+//	        	ctx.stroke();
+//	        	ctx.closePath();
+				drawArrow(ctx, x1,y1, xt,yt,30,50,1,'#f36');
+       	 	}
+      
+        } 
+	}
+//	drawArrow(ctx, 80,100, 400,100,30,30,2,'#f36');
+	
+	function drawArrow(ctx, fromX, fromY, toX, toY,theta,headlen,width,color) {
+	  var theta = theta || 30,
+	      headlen = headlen || 10,
+	      width = width || 1,
+	      color = color || '#000',
+	      angle = Math.atan2(fromY - toY, fromX - toX) *180 / Math.PI,
+	      angle1 = (angle + theta) * Math.PI / 180,
+	      angle2 = (angle - theta) * Math.PI / 180,
+	      topX = headlen * Math.cos(angle1),
+	      topY = headlen * Math.sin(angle1),
+	      botX = headlen * Math.cos(angle2),
+	      botY = headlen * Math.sin(angle2);
+	  ctx.save();
+	  ctx.beginPath();
+	  var arrowX, arrowY;
+	  ctx.moveTo(fromX, fromY);
+	  ctx.lineTo(toX, toY);
+	  arrowX = toX + topX;
+	  arrowY = toY + topY;
+	  ctx.moveTo(arrowX, arrowY);
+	  ctx.lineTo(toX, toY);
+	  arrowX = toX + botX;
+	  arrowY = toY + botY;
+	  ctx.lineTo(arrowX, arrowY);
+	  ctx.strokeStyle = color;
+	  ctx.lineWidth = width;
+	  ctx.stroke();
+	  ctx.closePath();
+	}
+</script>
